@@ -9,11 +9,20 @@
 // console.log(result);
 
 //MIT TASK M 
-function getSquareNumbers(arr: number[]) {
-    return arr.map(num => ({
-        number: num,
-        square: num * num
-    }));
+// function getSquareNumbers(arr: number[]) {
+//     return arr.map(num => ({
+//         number: num,
+//         square: num * num
+//     }));
+// }
+
+// console.log(getSquareNumbers([1, 2, 3]));
+
+//Mit TASK N
+function palindromCheck(str: string): boolean {
+    const reversedStr: string = str.split("").reverse().join("");
+    return str === reversedStr;
 }
 
-console.log(getSquareNumbers([1, 2, 3]));
+console.log(palindromCheck("dad"));
+console.log(palindromCheck("hello"));

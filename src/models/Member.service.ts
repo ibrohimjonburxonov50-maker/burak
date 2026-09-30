@@ -23,36 +23,36 @@ class MemberService {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
         }
 
+        const salt = await bcrypt.genSalt();
+        input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
         try {
             const result = await this.memberModdel.create(input);
             result.memberPassword = "";
             return result;
         } catch (err) {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
-            const salt = await bcrypt.genSalt();
-            input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
-
         }
 
     }
     public static async processLogin(input: LoginInput): Promise<Member> {
         const member = await MemberModel
             .findOne(
-                { memberNick: input.membernick },
+                { memberNick: input.memberNick },
                 { memberPassword: 1, memberNick: 1, })
             .exec();
         if (!member) {
             throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
-
-            const isMatch = await bcrypt.compare(
-                input.memberPassword,
-                member.memberPassword);
-            if (!isMatch) {
-                throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
-            }
         }
-        return await MemberModel
-            .findById(member._id).exec();
+
+        const isMatch = await bcrypt.compare(
+            input.memberPassword,
+            member.memberPassword
+        );
+        if (!isMatch) {
+            throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+        }
+
+        return await MemberModel.findById(member._id).exec();
     }
 }
 

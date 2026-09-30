@@ -30,6 +30,6 @@ export interface MemberInput {
 }
 
 export interface LoginInput {
-    membernick: string;
+    memberNick: string;
     memberPassword: string;
 }

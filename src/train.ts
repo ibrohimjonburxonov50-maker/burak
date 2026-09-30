@@ -28,10 +28,17 @@
 // console.log(palindromCheck("hello"));
 
 //MIT TASK O
-function calculateSumOfNumbers(arr: any[]): number {
-    return arr.reduce((sum, current) => {
-        return typeof current === "number" ? sum + current : sum;
-    }, 0);
+// function calculateSumOfNumbers(arr: any[]): number {
+//     return arr.reduce((sum, current) => {
+//         return typeof current === "number" ? sum + current : sum;
+//     }, 0);
+// }
+
+// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
+
+// MIT TASK P
+function objectToArray(obj: Record<string, any>): [string, any][] {
+    return Object.entries(obj);
 }
 
-console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
+console.log(objectToArray({ a: 10, b: 20 })); 

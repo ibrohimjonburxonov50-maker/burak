@@ -44,11 +44,25 @@
 // console.log(objectToArray({ a: 10, b: 20 })); 
 
 //MIT TASK Q
-function hasProperty(obj: object, key: string): boolean {
-    return key in obj;
+// function hasProperty(obj: object, key: string): boolean {
+//     return key in obj;
+// }
+
+// const car = { name: "BMW" };
+
+// console.log(hasProperty(car, "name"));
+// console.log(hasProperty(car, "model")); 
+
+//MIT TASK R
+function calculateSafe(expression: string): number {
+    const parts: string[] = expression.split(" ");
+
+    if (parts.length === 3 && parts[1] === "+") {
+        return Number(parts[0]) + Number(parts[2]);
+    }
+
+    return 0;
 }
 
-const car = { name: "BMW" };
 
-console.log(hasProperty(car, "name"));
-console.log(hasProperty(car, "model")); 
+console.log(calculateSafe("1 + 3")); 

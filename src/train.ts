@@ -54,15 +54,30 @@
 // console.log(hasProperty(car, "model")); 
 
 //MIT TASK R
-function calculateSafe(expression: string): number {
-    const parts: string[] = expression.split(" ");
+// function calculateSafe(expression: string): number {
+//     const parts: string[] = expression.split(" ");
 
-    if (parts.length === 3 && parts[1] === "+") {
-        return Number(parts[0]) + Number(parts[2]);
+//     if (parts.length === 3 && parts[1] === "+") {
+//         return Number(parts[0]) + Number(parts[2]);
+//     }
+
+//     return 0;
+// }
+
+
+// console.log(calculateSafe("1 + 3")); 
+
+//MIT TASK S
+function missingNumber(nums: number[]): number {
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== i) {
+            return i;
+        }
     }
-
-    return 0;
+    return nums.length;
 }
 
 
-console.log(calculateSafe("1 + 3")); 
+console.log(missingNumber([3, 0, 1]));

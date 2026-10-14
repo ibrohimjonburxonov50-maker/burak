@@ -68,16 +68,22 @@
 // console.log(calculateSafe("1 + 3")); 
 
 //MIT TASK S
-function missingNumber(nums: number[]): number {
-    nums.sort((a, b) => a - b);
+// function missingNumber(nums: number[]): number {
+//     nums.sort((a, b) => a - b);
 
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] !== i) {
-            return i;
-        }
-    }
-    return nums.length;
+//     for (let i = 0; i < nums.length; i++) {
+//         if (nums[i] !== i) {
+//             return i;
+//         }
+//     }
+//     return nums.length;
+// }
+
+
+// console.log(missingNumber([3, 0, 1]));
+
+//MIT TASK T
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+    return arr1.concat(arr2).sort((a, b) => a - b);
 }
-
-
-console.log(missingNumber([3, 0, 1]));
+console.log(mergeSortedArrays([0, 3, 4], [4, 6]));

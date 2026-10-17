@@ -8,10 +8,10 @@ import Errors, { HttpCode, Message } from "../libs/types/Errors";
 const memberService = new MemberService();
 
 const restaurantController: T = {};
-restaurantController.goHome = (req: Request, res: Response) => {
+restaurantController.goHome = (req: AdminRequest, res: Response) => {
     try {
         console.log("goHome");
-        res.render("home");
+        res.render("home", { member: req.session?.member });
     } catch (err) {
         console.log("Error, goHome:", err);
         res.redirect("/admin");

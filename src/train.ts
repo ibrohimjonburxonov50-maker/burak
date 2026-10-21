@@ -83,7 +83,17 @@
 // console.log(missingNumber([3, 0, 1]));
 
 //MIT TASK T
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-    return arr1.concat(arr2).sort((a, b) => a - b);
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//     return arr1.concat(arr2).sort((a, b) => a - b);
+// }
+// console.log(mergeSortedArrays([0, 3, 4], [4, 6]));
+
+// MIT Task V
+function countChars(str: string): Record<string, number> {
+    return [...str].reduce((acc, char) => {
+        acc[char] = (acc[char] || 0) + 1;
+        return acc;
+    }, {} as Record<string, number>);
 }
-console.log(mergeSortedArrays([0, 3, 4], [4, 6]));
+
+console.log(countChars("hello")); 

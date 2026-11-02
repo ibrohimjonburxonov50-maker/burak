@@ -18,6 +18,8 @@ export enum Message {
     NO_MEMBER_NICK = "No member with this nickname is found!",
     WRONG_PASSWORD = "The password is wrong!",
     NOT_AUTHENTICATED = "You are not authenticated!",
+    BLOCKED_USER = "BLOCKED_USER",
+    TOKEN_CREATION_FAILED = "Token creation failed!",
 }
 
 class Errors extends Error {

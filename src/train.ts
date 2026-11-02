@@ -89,11 +89,23 @@
 // console.log(mergeSortedArrays([0, 3, 4], [4, 6]));
 
 // MIT Task V
-function countChars(str: string): Record<string, number> {
-    return [...str].reduce((acc, char) => {
-        acc[char] = (acc[char] || 0) + 1;
-        return acc;
-    }, {} as Record<string, number>);
-}
+// function countChars(str: string): Record<string, number> {
+//     return [...str].reduce((acc, char) => {
+//         acc[char] = (acc[char] || 0) + 1;
+//         return acc;
+//     }, {} as Record<string, number>);
+// }
 
-console.log(countChars("hello")); 
+// console.log(countChars("hello")); 
+
+//MIT Task W
+function chunkArray<T>(arr: T[], size: number): T[][] {
+    const result: T[][] = [];
+
+    for (let i = 0; i < arr.length; i += size) {
+        result.push(arr.slice(i, i + size));
+    }
+
+    return result;
+}
+console.log(chunkArray([1, 2, 3, 4, 5], 2)); 

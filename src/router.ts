@@ -19,7 +19,10 @@ router.get(
 router.post("/member/update",
     membercontroller.verifyAuth,
     uploader("members").single("memberImage"),
-    membercontroller.updateMember);
+    membercontroller.updateMember
+);
+
+router.get("/member/top-users", membercontroller.getTopUsers);
 
 /**Product **/
 

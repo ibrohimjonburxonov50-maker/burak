@@ -4,12 +4,18 @@ import { T } from "../libs/types/common";
 import Errors, { HttpCode, Message } from "../libs/types/Errors";
 import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
+import { ObjectId } from "mongoose";
+import ViewService from "./view.service";
+import { ViewInput } from "../libs/types/view";
+import { ViewGroup } from "../libs/enums/view.enum";
 
 class ProductService {
     private readonly productModel;
+    public viewService;
 
     constructor() {
         this.productModel = ProductModel;
+        this.viewService = new ViewService();
     }
 
     /** SPA */
@@ -37,6 +43,43 @@ class ProductService {
             .exec();
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
+        return result;
+    }
+
+    public async getProduct(id: string, memberId: ObjectId | null): Promise<Product> {
+        const productId = shapeIntoMongooseObjectId(id);
+
+        let result = await this.productModel
+            .findOne({
+                _id: productId,
+                productStatus: ProductStatus.PROCESS
+            })
+            .exec();
+        if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        // To Do
+        if (memberId) {
+            // Check if the view already exists for this member and product
+            const input: ViewInput = {
+                memberId: memberId,
+                viewRefId: productId,
+                viewGroup: ViewGroup.PRODUCT
+            };
+            const existView = await this.viewService.checkViewExistence(input);
+            console.log("existView:", existView);
+            if (!existView) {
+                // Insert new view record
+                await this.viewService.insertMemberView(input);
+                // Increment view count for the product
+
+                const result2 = await this.productModel
+                    .findByIdAndUpdate(
+                        productId,
+                        { $inc: { productViews: +1 } },
+                        { new: true }
+                    )
+                    .exec();
+            }
+        }
         return result;
     }
 
@@ -70,5 +113,6 @@ class ProductService {
         return result;
     }
 }
+
 
 export default ProductService;

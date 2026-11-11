@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
 const OrderItemSchema = new Schema({
-    ItemQuantity: {
+    itemQuantity: {
         type: Number,
         required: true
     },
-    ItemPrice: {
+    itemPrice: {
         type: Number,
         required: true
     },

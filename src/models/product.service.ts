@@ -21,12 +21,14 @@ class ProductService {
     /** SPA */
 
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
-        const match: T = { ProductStatus: ProductStatus.PROCESS };
+        const match: T = { productStatus: ProductStatus.PROCESS };
 
         if (inquiry.productCollection)
             match.productCollection = inquiry.productCollection;
         if (inquiry.search)
             match.productName = { $regex: new RegExp(inquiry.search, "i") };
+
+        console.log("getProducts match:", match);
 
         const sort: T =
             inquiry.order === "productPrice"
@@ -41,6 +43,7 @@ class ProductService {
                 { $limit: inquiry.limit * 1 },
             ])
             .exec();
+        console.log("getProducts query result:", result);
         if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
         return result;
